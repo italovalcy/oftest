@@ -171,7 +171,7 @@ def packet_to_flow_match_v1(packet):
 
 def packet_to_flow_match_v3(packet):
     """
-    OpenFlow 1.2 implementation of packet_to_flow_match
+    OpenFlow 1.3 implementation of packet_to_flow_match
     """
     import loxi.of12 as ofp
     return packet_to_flow_match_oxm(packet, ofp)
@@ -216,8 +216,8 @@ def packet_to_flow_match_oxm(packet, ofp):
     def parse_ipv4_layer(layer, match):
         assert(type(layer) == scapy.IP)
         match.oxm_list.append(ofp.oxm.ip_proto(layer.proto))
-        match.oxm_list.append(ofp.oxm.ip_dscp(layer.tos >> 2))
-        match.oxm_list.append(ofp.oxm.ip_ecn(layer.tos & 3))
+        #match.oxm_list.append(ofp.oxm.ip_dscp(layer.tos >> 2))
+        #match.oxm_list.append(ofp.oxm.ip_ecn(layer.tos & 3))
         match.oxm_list.append(ofp.oxm.ipv4_src(parse_ip(layer.src)))
         match.oxm_list.append(ofp.oxm.ipv4_dst(parse_ip(layer.dst)))
 
