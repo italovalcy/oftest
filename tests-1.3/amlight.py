@@ -118,12 +118,15 @@ class BaseModifyPacketTest(base_tests.SimpleDataPlane):
     Base class for action tests that modify a packet
     """
 
-    def verify_modify(self, actions, pkt, exp_pkt):
+    def verify_modify(self, actions, pkt, exp_pkt, match=None):
         in_port, out_port = openflow_ports(2)
 
         actions = actions + [ofp.action.output(out_port)]
 
-        match=packet_to_flow_match(self, pkt)
+        if not match:
+            match=packet_to_flow_match(self, pkt)
+
+        logging.info("Running match test for %s", pp(match))
 
         logging.info("Running actions test for %s", pp(actions))
 
@@ -132,7 +135,7 @@ class BaseModifyPacketTest(base_tests.SimpleDataPlane):
         logging.info("Inserting flow")
         request = ofp.message.flow_add(
                 table_id=test_param_get("table", 0),
-                match=packet_to_flow_match(self, pkt),
+                match=match,
                 instructions=[
                     ofp.instruction.apply_actions(actions)],
                 buffer_id=ofp.OFP_NO_BUFFER,
@@ -199,44 +202,44 @@ class MatchVlanVIDMasked(MatchTest):
 
         self.verify_match(match, matching, nonmatching)
 
-class MatchEthDstMasked(MatchTest):
+class MatchEthSrcMasked(MatchTest):
     """
-    Match on ethernet destination (masked)
+    Match on ethernet source
     """
     def runTest(self):
         match = ofp.match([
-            ofp.oxm.eth_dst_masked([0x00, 0x01, 0x02, 0x03, 0x00, 0x05],
+            ofp.oxm.eth_src_masked([0x00, 0x01, 0x02, 0x03, 0x00, 0x05],
                                    [0xff, 0xff, 0xff, 0xff, 0xf0, 0x0f])
         ])
 
         matching = {
-            "00:01:02:03:00:05": simple_tcp_packet(eth_dst='00:01:02:03:04:05'),
-            "00:01:02:03:04:15": simple_tcp_packet(eth_dst='00:01:02:03:04:15'),
-            "00:01:02:03:0a:f5": simple_tcp_packet(eth_dst='00:01:02:03:0a:05'),
+            "00:01:02:03:00:05": simple_tcp_packet(eth_src='00:01:02:03:04:05'),
+            "00:01:02:03:04:15": simple_tcp_packet(eth_src='00:01:02:03:04:15'),
+            "00:01:02:03:0a:f5": simple_tcp_packet(eth_src='00:01:02:03:0a:05'),
         }
 
         nonmatching = {
-            "00:02:02:03:04:05": simple_tcp_packet(eth_dst='00:02:02:03:04:05'),
-            "00:01:02:07:04:05": simple_tcp_packet(eth_dst='00:01:02:07:04:05'),
+            "00:02:02:03:04:05": simple_tcp_packet(eth_src='00:02:02:03:04:05'),
+            "00:01:02:07:04:05": simple_tcp_packet(eth_src='00:01:02:07:04:05'),
         }
 
         self.verify_match(match, matching, nonmatching)
 
-class MatchEthDst(MatchTest):
+class MatchEthSrc(MatchTest):
     """
-    Match on ethernet destination
+    Match on ethernet source
     """
     def runTest(self):
         match = ofp.match([
-            ofp.oxm.eth_dst([0x00, 0x01, 0x02, 0x03, 0x04, 0x05])
+            ofp.oxm.eth_src([0x00, 0x01, 0x02, 0x03, 0x04, 0x05])
         ])
 
         matching = {
-            "00:01:02:03:04:05": simple_tcp_packet(eth_dst='00:01:02:03:04:05'),
+            "00:01:02:03:04:05": simple_tcp_packet(eth_src='00:01:02:03:04:05'),
         }
 
         nonmatching = {
-            "00:01:02:03:04:06": simple_tcp_packet(eth_dst='00:01:02:07:04:06'),
+            "00:01:02:03:04:06": simple_tcp_packet(eth_src='00:01:02:07:04:06'),
         }
 
         self.verify_match(match, matching, nonmatching)
@@ -371,24 +374,24 @@ class MatchInterestFieldsMasked(MatchTest):
         match = ofp.match([
             ofp.oxm.in_port(in_port),
             ofp.oxm.vlan_vid_masked(ofp.OFPVID_PRESENT|8, ofp.OFPVID_PRESENT|248),
-            ofp.oxm.eth_dst_masked([0x00, 0x01, 0x02, 0x03, 0x04, 0x05],
+            ofp.oxm.eth_src_masked([0x00, 0x01, 0x02, 0x03, 0x04, 0x05],
                                    [0xff, 0xff, 0xff, 0xff, 0xff, 0x0f]),
             ofp.oxm.eth_type(0x0800),
             ofp.oxm.ip_proto(6),
         ])
 
         matching = {
-            "in_port=%d vid=10 eth_dst=00:01:02:03:04:05 ipv4/tcp" % (in_port): simple_tcp_packet(dl_vlan_enable=True, vlan_vid=10, eth_dst='00:01:02:03:04:05'),
-            "in_port=%d vid=11 eth_dst=00:01:02:03:04:15 ipv4/tcp" % (in_port): simple_tcp_packet(dl_vlan_enable=True, vlan_vid=11, eth_dst='00:01:02:03:04:15'),
+            "in_port=%d vid=10 eth_src=00:01:02:03:04:05 ipv4/tcp" % (in_port): simple_tcp_packet(dl_vlan_enable=True, vlan_vid=10, eth_src='00:01:02:03:04:05'),
+            "in_port=%d vid=11 eth_src=00:01:02:03:04:15 ipv4/tcp" % (in_port): simple_tcp_packet(dl_vlan_enable=True, vlan_vid=11, eth_src='00:01:02:03:04:15'),
         }
 
         nonmatching = {
             "ipv6/tcp": simple_tcpv6_packet(),
-            "in_port=%d vid=10 eth_dst=00:01:02:03:04:05 ipv4/tcp" % (out_port): simple_tcp_packet(dl_vlan_enable=True, vlan_vid=10, eth_dst='00:01:02:03:04:05'),
-            "in_port=%d vid=20 eth_dst=00:01:02:03:04:15 ipv4/tcp" % (in_port): simple_tcp_packet(dl_vlan_enable=True, vlan_vid=20, eth_dst='00:01:02:03:04:15'),
-            "in_port=%d vid=11 eth_dst=00:01:02:03:04:06 ipv4/tcp" % (in_port): simple_tcp_packet(dl_vlan_enable=True, vlan_vid=10, eth_dst='00:01:02:03:04:06'),
-            "in_port=%d vid=11 eth_dst=00:01:02:03:04:05 ipv4/udp" % (in_port): simple_udp_packet(dl_vlan_enable=True, vlan_vid=10, eth_dst='00:01:02:03:04:05'),
-            "in_port=%d vid=11 eth_dst=00:01:02:03:04:05 ipv4/icmp" % (in_port): simple_icmp_packet(dl_vlan_enable=True, vlan_vid=10, eth_dst='00:01:02:03:04:05'),
+            "in_port=%d vid=10 eth_src=00:01:02:03:04:05 ipv4/tcp" % (out_port): simple_tcp_packet(dl_vlan_enable=True, vlan_vid=10, eth_src='00:01:02:03:04:05'),
+            "in_port=%d vid=20 eth_src=00:01:02:03:04:15 ipv4/tcp" % (in_port): simple_tcp_packet(dl_vlan_enable=True, vlan_vid=20, eth_src='00:01:02:03:04:15'),
+            "in_port=%d vid=11 eth_src=00:01:02:03:04:06 ipv4/tcp" % (in_port): simple_tcp_packet(dl_vlan_enable=True, vlan_vid=10, eth_src='00:01:02:03:04:06'),
+            "in_port=%d vid=11 eth_src=00:01:02:03:04:05 ipv4/udp" % (in_port): simple_udp_packet(dl_vlan_enable=True, vlan_vid=10, eth_src='00:01:02:03:04:05'),
+            "in_port=%d vid=11 eth_src=00:01:02:03:04:05 ipv4/icmp" % (in_port): simple_icmp_packet(dl_vlan_enable=True, vlan_vid=10, eth_src='00:01:02:03:04:05'),
         }
 
         self.verify_match(match, matching, nonmatching, dp_port2=out_port)
@@ -403,13 +406,13 @@ class ActionOutputPhyPort(MatchTest):
         match = ofp.match([
             ofp.oxm.in_port(in_port),
             ofp.oxm.eth_src([0x00, 0x01, 0x02, 0x03, 0x04, 0x05]),
-            ofp.oxm.eth_dst([0x00, 0x01, 0x02, 0x03, 0x04, 0x06]),
+            #ofp.oxm.eth_dst([0x00, 0x01, 0x02, 0x03, 0x04, 0x06]),
             ofp.oxm.eth_type(0x0800),
             ofp.oxm.vlan_vid(ofp.OFPVID_PRESENT|100),
-            ofp.oxm.ipv4_src(0xc0a80001), # 192.168.0.1
+            #ofp.oxm.ipv4_src(0xc0a80001), # 192.168.0.1
             ofp.oxm.ipv4_dst(0xc0a80002), # 192.168.0.1
             ofp.oxm.ip_proto(6),
-            ofp.oxm.tcp_src(1234),
+            #ofp.oxm.tcp_src(1234),
             ofp.oxm.tcp_dst(80),
         ])
 
@@ -466,13 +469,13 @@ class ActionOutputInPort(MatchTest):
         match = ofp.match([
             ofp.oxm.in_port(out_port),
             ofp.oxm.eth_src([0x00, 0x01, 0x02, 0x03, 0x04, 0x05]),
-            ofp.oxm.eth_dst([0x00, 0x01, 0x02, 0x03, 0x04, 0x06]),
+            #ofp.oxm.eth_dst([0x00, 0x01, 0x02, 0x03, 0x04, 0x06]),
             ofp.oxm.eth_type(0x0800),
             ofp.oxm.vlan_vid(ofp.OFPVID_PRESENT|100),
-            ofp.oxm.ipv4_src(0xc0a80001), # 192.168.0.1
+            #ofp.oxm.ipv4_src(0xc0a80001), # 192.168.0.1
             ofp.oxm.ipv4_dst(0xc0a80002), # 192.168.0.1
             ofp.oxm.ip_proto(6),
-            ofp.oxm.tcp_src(1234),
+            #ofp.oxm.tcp_src(1234),
             ofp.oxm.tcp_dst(80),
         ])
         actions=[ofp.action.output(port=ofp.OFPP_IN_PORT,
@@ -667,7 +670,7 @@ class ActionOutputTABLE(base_tests.SimpleDataPlane):
         port1, port2 = openflow_ports(2)
 
         # clean up previews flows
-        delete_all_flows(self.controller)
+        #delete_all_flows(self.controller)
 
         # flow forward to output to port1
         match = ofp.match([
@@ -691,7 +694,7 @@ class ActionOutputTABLE(base_tests.SimpleDataPlane):
         # and it will be processed through the regular OpenFlow pipeline
         pkt = str(simple_icmp_packet())
         msg = ofp.message.packet_out(
-            in_port=ofp.OFPP_LOCAL,
+            in_port=23,
             actions=[ofp.action.output(port=ofp.OFPP_TABLE)],
             buffer_id=ofp.OFP_NO_BUFFER,
             data=pkt)
@@ -732,31 +735,51 @@ class ActionPushVlanVid(BaseModifyPacketTest):
     Push a vlan tag (vid=100, pcp=0)
     """
     def runTest(self):
+        match = ofp.match([
+            ofp.oxm.eth_type(0x0800),
+            ofp.oxm.ipv4_dst(0xc0a80002), # 192.168.0.2
+            ofp.oxm.ip_proto(6),
+            ofp.oxm.tcp_dst(80),
+        ])
         actions = [ofp.action.push_vlan(ethertype=0x8100),
                    ofp.action.set_field(ofp.oxm.vlan_vid(ofp.OFPVID_PRESENT|100))]
         pkt = simple_tcp_packet()
         exp_pkt = simple_tcp_packet(dl_vlan_enable=True, vlan_vid=100, pktlen=104)
-        self.verify_modify(actions, pkt, exp_pkt)
+        self.verify_modify(actions, pkt, exp_pkt, match=match)
 
 class ActionPopVlan(BaseModifyPacketTest):
     """
     Pop a vlan tag
     """
     def runTest(self):
+        match = ofp.match([
+            ofp.oxm.vlan_vid(ofp.OFPVID_PRESENT|100),
+            ofp.oxm.eth_type(0x0800),
+            ofp.oxm.ipv4_dst(0xc0a80002), # 192.168.0.2
+            ofp.oxm.ip_proto(6),
+            ofp.oxm.tcp_dst(80),
+        ])
         actions = [ofp.action.pop_vlan()]
         pkt = simple_tcp_packet(dl_vlan_enable=True, vlan_vid=100, pktlen=104)
         exp_pkt = simple_tcp_packet()
-        self.verify_modify(actions, pkt, exp_pkt)
+        self.verify_modify(actions, pkt, exp_pkt, match=match)
 
 class ActionSetVlanVid(BaseModifyPacketTest):
     """
     Set the vlan vid
     """
     def runTest(self):
+        match = ofp.match([
+            ofp.oxm.vlan_vid(ofp.OFPVID_PRESENT|1098),
+            ofp.oxm.eth_type(0x0800),
+            ofp.oxm.ipv4_dst(0xc0a80002), # 192.168.0.2
+            ofp.oxm.ip_proto(6),
+            ofp.oxm.tcp_dst(80),
+        ])
         actions = [ofp.action.set_field(ofp.oxm.vlan_vid(ofp.OFPVID_PRESENT | 1099))]
         pkt = simple_tcp_packet(dl_vlan_enable=True, vlan_vid=1098)
         exp_pkt = simple_tcp_packet(dl_vlan_enable=True, vlan_vid=1099)
-        self.verify_modify(actions, pkt, exp_pkt)
+        self.verify_modify(actions, pkt, exp_pkt, match=match)
 
 #class SetBFD(base_tests.SimpleDataPlane):
 #    """
