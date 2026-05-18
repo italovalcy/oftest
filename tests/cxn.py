@@ -169,18 +169,18 @@ class CompleteHandshake(BaseHandshake):
         # Report every second or so
         if (current_time - self.last_report >= 1):
             if self.periodic_pkt_in_count:
-                print "%7.2f: pkt/sec last period:  %6d.  Total %10d." % (
+                print("%7.2f: pkt/sec last period:  %6d.  Total %10d." % (
                     current_time - self.start_time,
                     self.periodic_pkt_in_count/(current_time - self.last_report),
-                    self.pkt_in_count)
+                    self.pkt_in_count))
             self.last_report = current_time
             self.periodic_pkt_in_count = 0
 
     def periodic_task_done(self):
         if not self.report_pkts:
             return
-        print "Received %d pkt-ins over %d seconds" % (
-            self.pkt_in_count, time.time() - self.start_time)
+        print("Received %d pkt-ins over %d seconds" % (
+            self.pkt_in_count, time.time() - self.start_time))
         
     def runTest(self):
         for conspec in self.controller_list:

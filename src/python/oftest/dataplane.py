@@ -194,11 +194,11 @@ class DataPlane(Thread):
         Activity function for class
         """
         while not self.killed:
-            sockets = [self.waker] + self.ports.values()
+            sockets = [self.waker] + list(self.ports.values())
             try:
                 sel_in, sel_out, sel_err = select.select(sockets, [], [], 1)
             except:
-                print sys.exc_info()
+                print(sys.exc_info())
                 self.logger.error("Select error, exiting")
                 break
 

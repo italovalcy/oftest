@@ -264,4 +264,4 @@ class TableModConfig(base_tests.SimpleProtocol):
     
 
 if __name__ == "__main__":
-    print "Please run through oft script:  ./oft --test_spec=basic"
+    print("Please run through oft script:  ./oft --test_spec=basic")

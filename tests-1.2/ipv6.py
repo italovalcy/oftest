@@ -268,4 +268,4 @@ class MatchIPv6TCP(base_tests.SimpleDataPlane):
         self.assertEqual(rc, 0, "Failed to delete all flows")
 
 if __name__ == "__main__":
-    print "Please run through oft script:  ./oft --test-spec=ipv6"
+    print("Please run through oft script:  ./oft --test-spec=ipv6")

@@ -54,4 +54,4 @@ class FlowMod_ModifyStrict(base_tests.SimpleProtocol):
         
 
 if __name__ == "__main__":
-    print "Please run through oft script:  ./oft --test_spec=flow_mods"
+    print("Please run through oft script:  ./oft --test_spec=flow_mods")

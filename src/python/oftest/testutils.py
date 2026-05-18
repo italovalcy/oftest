@@ -4,7 +4,7 @@ import logging
 import types
 import time
 import re
-import packet as scapy
+import scapy
 
 import oftest
 import oftest.controller
@@ -482,11 +482,11 @@ def simple_icmpv6_packet(pktlen=100,
     pkt /= scapy.IPv6(src=ipv6_src, dst=ipv6_dst, fl=ipv6_fl, tc=ipv6_tc, hlim=ipv6_hlim)
 
     if icmp_type == TYPE_RA:
-        pkt /= scapy.ICMPv6ND_RA(chlim = 255, H=0L, M=0L, O=1L, routerlifetime=1800, P=0L, retranstimer=0, prf=0L, res=0L)
+        pkt /= scapy.ICMPv6ND_RA(chlim = 255, H=0, M=0, O=1, routerlifetime=1800, P=0, retranstimer=0, prf=0, res=0)
         if prefix_opt:
             # advertise prefix specified by ipv6_prefix
             pkt /= \
-            scapy.ICMPv6NDOptPrefixInfo(A=1L, res2=0, res1=0L, L=1L, len=4, prefix=ipv6_prefix, R=0L, validlifetime=1814400, prefixlen=64, preferredlifetime=604800, type=3)
+            scapy.ICMPv6NDOptPrefixInfo(A=1, res2=0, res1=0, L=1, len=4, prefix=ipv6_prefix, R=0, validlifetime=1814400, prefixlen=64, preferredlifetime=604800, type=3)
         if has_ll:
             pkt /= \
             scapy.ICMPv6NDOptSrcLLAddr(type=1, len=1, lladdr=ll_addr)
@@ -1252,7 +1252,7 @@ def test_param_get(key, default=None):
     eg egr_count, not egr-count.
     """
     try:
-        exec oftest.config["test_params"]
+        exec(oftest.config["test_params"])
     except:
         return default
 

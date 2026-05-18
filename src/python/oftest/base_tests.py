@@ -43,7 +43,7 @@ class SimpleProtocol(BaseTest):
         try:
             #@todo Add an option to wait for a pkt transaction to ensure version
             # compatibilty?
-            self.controller.connect(timeout=20)
+            self.controller.connect(timeout=config["controller_timeout"])
 
             # By default, respond to echo requests
             self.controller.keep_alive = True

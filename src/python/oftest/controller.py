@@ -399,7 +399,7 @@ class Controller(Thread):
             soc.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, True)
             self.switch_addr = (self.switch, self.port)
             return soc
-        except (StandardError, socket.error), e:
+        except (StandardError, socket.error) as e:
             self.logger.error("Could not connect to %s at %d:: %s" % 
                               (self.switch, self.port, str(e)))
         return None
@@ -439,7 +439,7 @@ class Controller(Thread):
                 sel_in, sel_out, sel_err = \
                     select.select(self.sockets(), [], self.sockets(), 1)
             except:
-                print sys.exc_info()
+                print(sys.exc_info())
                 self.logger.error("Select error, disconnecting")
                 self.disconnect()
 
@@ -717,7 +717,7 @@ class Controller(Thread):
         return string
 
     def show(self):
-        print str(self)
+        print(str(self))
 
 def sample_handler(controller, msg, pkt):
     """
