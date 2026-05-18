@@ -1,10 +1,11 @@
+import ast
 import sys
 import copy
 import logging
 import types
 import time
 import re
-import scapy
+import scapy.all as scapy
 
 import oftest
 import oftest.controller
@@ -1501,7 +1502,7 @@ def hex_dump_buffer(src, length=16):
     @returns A string showing the hex dump
     """
     result = ["\n"]
-    for i in xrange(0, len(src), length):
+    for i in range(0, len(src), length):
        chars = src[i:i+length]
        hex = ' '.join(["%02x" % ord(x) for x in chars])
        printable = ''.join(["%s" % ((ord(x) <= 127 and
@@ -1807,6 +1808,8 @@ def packet_in_match(msg, data, in_port=None, reason=None):
     @param reason Expected packet_in reason, or None
     """
 
+    if isinstance(data, str):
+        data = ast.literal_eval(data)
     if ofp.OFP_VERSION <= 2:
         pkt_in_port = msg.in_port
     else:
@@ -1831,6 +1834,8 @@ def packet_in_match(msg, data, in_port=None, reason=None):
     # need to check that the smaller packet is a prefix of the larger one.
     # Note that this check succeeds if the switch sends a zero-length
     # packet-in.
+    if isinstance(data, str):
+        data = ast.literal_eval(data)
     compare_len = min(len(msg.data), len(data))
     if data[:compare_len] != msg.data[:compare_len]:
         logging.debug("Incorrect packet_in data")

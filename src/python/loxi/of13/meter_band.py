@@ -81,7 +81,7 @@ class drop(meter_band):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.rate))
         packed.append(struct.pack("!L", self.burst_size))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         return ''.join(packed)
@@ -145,7 +145,7 @@ class dscp_remark(meter_band):
         packed.append(struct.pack("!L", self.rate))
         packed.append(struct.pack("!L", self.burst_size))
         packed.append(struct.pack("!B", self.prec_level))
-        packed.append('\x00' * 3)
+        packed.append(b'\x00' * 3)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         return ''.join(packed)

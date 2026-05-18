@@ -54,7 +54,7 @@ def hex_dump_buffer(src, length=16):
     @returns A string showing the hex dump
     """
     result = ["\n"]
-    for i in xrange(0, len(src), length):
+    for i in range(0, len(src), length):
        chars = src[i:i+length]
        hex = ' '.join(["%02x" % ord(x) for x in chars])
        printable = ''.join(["%s" % ((ord(x) <= 127 and
@@ -154,7 +154,7 @@ class Controller(Thread):
         self.xid = None
         self.xid_response = None
 
-        self.buffered_input = ""
+        self.buffered_input = b""
 
         # Create listen socket
         if self.passive:
@@ -210,7 +210,7 @@ class Controller(Thread):
 
         # snag any left over data from last read()
         pkt = self.buffered_input + pkt
-        self.buffered_input = ""
+        self.buffered_input = b""
 
         # Process each of the OF msgs inside the pkt
         offset = 0

@@ -31,7 +31,7 @@ class instruction(loxi.OFObject):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -75,11 +75,11 @@ class apply_actions(instruction):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(loxi.generic_util.pack_list(self.actions))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -134,7 +134,7 @@ class experimenter(instruction):
         packed.append(self.data)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -190,10 +190,10 @@ class bsn(experimenter):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -243,10 +243,10 @@ class bsn_arp_offload(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -291,10 +291,10 @@ class bsn_auto_negotiation(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -339,10 +339,10 @@ class bsn_deny(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -387,10 +387,10 @@ class bsn_dhcp_offload(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -435,10 +435,10 @@ class bsn_directed_broadcast(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -483,10 +483,10 @@ class bsn_disable_l3(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -531,10 +531,10 @@ class bsn_disable_split_horizon_check(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -579,10 +579,10 @@ class bsn_disable_src_mac_check(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -627,10 +627,10 @@ class bsn_disable_vlan_counters(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -682,7 +682,7 @@ class bsn_hash_select(bsn):
         packed.append(struct.pack("!L", self.flags))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -738,7 +738,7 @@ class bsn_internal_priority(bsn):
         packed.append(struct.pack("!L", self.value))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -786,10 +786,10 @@ class bsn_ndp_offload(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -834,10 +834,10 @@ class bsn_packet_of_death(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -882,10 +882,10 @@ class bsn_permit(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -930,10 +930,10 @@ class bsn_prioritize_pdus(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -978,10 +978,10 @@ class bsn_require_vlan_xlate(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1026,10 +1026,10 @@ class bsn_span_destination(bsn):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1070,10 +1070,10 @@ class clear_actions(instruction):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1115,10 +1115,10 @@ class goto_table(instruction):
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!B", self.table_id))
-        packed.append('\x00' * 3)
+        packed.append(b'\x00' * 3)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1166,7 +1166,7 @@ class meter(instruction):
         packed.append(struct.pack("!L", self.meter_id))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1210,11 +1210,11 @@ class write_actions(instruction):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(loxi.generic_util.pack_list(self.actions))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1263,12 +1263,12 @@ class write_metadata(instruction):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(struct.pack("!Q", self.metadata))
         packed.append(struct.pack("!Q", self.metadata_mask))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):

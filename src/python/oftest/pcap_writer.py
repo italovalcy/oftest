@@ -2,6 +2,7 @@
 Pcap file writer
 """
 
+import ast
 import struct
 
 PcapHeader = struct.Struct("<LHHLLLL")
@@ -48,6 +49,8 @@ class PcapWriter(object):
             1, # ethernet dlt
         ))
         self.stream.write(PPIAggregateField.pack(8, PPIAggregateField.size - 4, port))
+        if isinstance(data, str):
+            data = ast.literal_eval(data)
         self.stream.write(data)
 
     def close(self):

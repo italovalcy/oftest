@@ -28,7 +28,7 @@ class oxm(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -69,7 +69,7 @@ class arp_op(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -115,7 +115,7 @@ class arp_op_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -161,7 +161,7 @@ class arp_sha(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -207,7 +207,7 @@ class arp_sha_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
         packed.append(struct.pack("!6B", *self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -253,7 +253,7 @@ class arp_spa(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -299,7 +299,7 @@ class arp_spa_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -345,7 +345,7 @@ class arp_tha(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -391,7 +391,7 @@ class arp_tha_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
         packed.append(struct.pack("!6B", *self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -437,7 +437,7 @@ class arp_tpa(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -483,7 +483,7 @@ class arp_tpa_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -529,7 +529,7 @@ class bsn_egr_port_group_id(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -575,7 +575,7 @@ class bsn_egr_port_group_id_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -621,7 +621,7 @@ class bsn_global_vrf_allowed(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -667,7 +667,7 @@ class bsn_global_vrf_allowed_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -713,7 +713,7 @@ class bsn_in_ports_128(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(util.pack_bitmap_128(self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -759,7 +759,7 @@ class bsn_in_ports_128_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(util.pack_bitmap_128(self.value))
         packed.append(util.pack_bitmap_128(self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -805,7 +805,7 @@ class bsn_in_ports_512(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(util.pack_bitmap_512(self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -851,7 +851,7 @@ class bsn_in_ports_512_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(util.pack_bitmap_512(self.value))
         packed.append(util.pack_bitmap_512(self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -897,7 +897,7 @@ class bsn_ingress_port_group_id(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -943,7 +943,7 @@ class bsn_ingress_port_group_id_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -989,7 +989,7 @@ class bsn_inner_eth_dst(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1035,7 +1035,7 @@ class bsn_inner_eth_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
         packed.append(struct.pack("!6B", *self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1081,7 +1081,7 @@ class bsn_inner_eth_src(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1127,7 +1127,7 @@ class bsn_inner_eth_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
         packed.append(struct.pack("!6B", *self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1173,7 +1173,7 @@ class bsn_inner_vlan_vid(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1219,7 +1219,7 @@ class bsn_inner_vlan_vid_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1265,7 +1265,7 @@ class bsn_ip_fragmentation(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1311,7 +1311,7 @@ class bsn_ip_fragmentation_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1357,7 +1357,7 @@ class bsn_l2_cache_hit(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1403,7 +1403,7 @@ class bsn_l2_cache_hit_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1449,7 +1449,7 @@ class bsn_l3_dst_class_id(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1495,7 +1495,7 @@ class bsn_l3_dst_class_id_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1541,7 +1541,7 @@ class bsn_l3_interface_class_id(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1587,7 +1587,7 @@ class bsn_l3_interface_class_id_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1633,7 +1633,7 @@ class bsn_l3_src_class_id(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1679,7 +1679,7 @@ class bsn_l3_src_class_id_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1725,7 +1725,7 @@ class bsn_lag_id(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1771,7 +1771,7 @@ class bsn_lag_id_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1817,7 +1817,7 @@ class bsn_tcp_flags(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1863,7 +1863,7 @@ class bsn_tcp_flags_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1909,7 +1909,7 @@ class bsn_udf0(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1955,7 +1955,7 @@ class bsn_udf0_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2001,7 +2001,7 @@ class bsn_udf1(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2047,7 +2047,7 @@ class bsn_udf1_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2093,7 +2093,7 @@ class bsn_udf2(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2139,7 +2139,7 @@ class bsn_udf2_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2185,7 +2185,7 @@ class bsn_udf3(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2231,7 +2231,7 @@ class bsn_udf3_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2277,7 +2277,7 @@ class bsn_udf4(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2323,7 +2323,7 @@ class bsn_udf4_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2369,7 +2369,7 @@ class bsn_udf5(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2415,7 +2415,7 @@ class bsn_udf5_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2461,7 +2461,7 @@ class bsn_udf6(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2507,7 +2507,7 @@ class bsn_udf6_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2553,7 +2553,7 @@ class bsn_udf7(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2599,7 +2599,7 @@ class bsn_udf7_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2645,7 +2645,7 @@ class bsn_vfi(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2691,7 +2691,7 @@ class bsn_vfi_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2737,7 +2737,7 @@ class bsn_vlan_xlate_port_group_id(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2783,7 +2783,7 @@ class bsn_vlan_xlate_port_group_id_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2829,7 +2829,7 @@ class bsn_vrf(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2875,7 +2875,7 @@ class bsn_vrf_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2921,7 +2921,7 @@ class bsn_vxlan_network_id(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2967,7 +2967,7 @@ class bsn_vxlan_network_id_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3006,14 +3006,14 @@ class conn_tracking_ipv6_dst(oxm):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!16s", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3047,11 +3047,11 @@ class conn_tracking_ipv6_dst_masked(oxm):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         if value_mask != None:
             self.value_mask = value_mask
         else:
-            self.value_mask = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value_mask = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
@@ -3059,7 +3059,7 @@ class conn_tracking_ipv6_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!16s", self.value))
         packed.append(struct.pack("!16s", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3098,14 +3098,14 @@ class conn_tracking_ipv6_src(oxm):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!16s", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3139,11 +3139,11 @@ class conn_tracking_ipv6_src_masked(oxm):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         if value_mask != None:
             self.value_mask = value_mask
         else:
-            self.value_mask = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value_mask = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
@@ -3151,7 +3151,7 @@ class conn_tracking_ipv6_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!16s", self.value))
         packed.append(struct.pack("!16s", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3197,7 +3197,7 @@ class conn_tracking_label(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(loxi.unimplemented('pack uint128_t'))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3243,7 +3243,7 @@ class conn_tracking_label_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(loxi.unimplemented('pack uint128_t'))
         packed.append(loxi.unimplemented('pack uint128_t'))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3289,7 +3289,7 @@ class conn_tracking_mark(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3335,7 +3335,7 @@ class conn_tracking_mark_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3381,7 +3381,7 @@ class conn_tracking_nw_dst(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3427,7 +3427,7 @@ class conn_tracking_nw_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3473,7 +3473,7 @@ class conn_tracking_nw_proto(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3519,7 +3519,7 @@ class conn_tracking_nw_proto_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3565,7 +3565,7 @@ class conn_tracking_nw_src(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3611,7 +3611,7 @@ class conn_tracking_nw_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3657,7 +3657,7 @@ class conn_tracking_state(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3703,7 +3703,7 @@ class conn_tracking_state_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3749,7 +3749,7 @@ class conn_tracking_tp_dst(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3795,7 +3795,7 @@ class conn_tracking_tp_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3841,7 +3841,7 @@ class conn_tracking_tp_src(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3887,7 +3887,7 @@ class conn_tracking_tp_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3933,7 +3933,7 @@ class conn_tracking_zone(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3979,7 +3979,7 @@ class conn_tracking_zone_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4025,7 +4025,7 @@ class eth_dst(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4071,7 +4071,7 @@ class eth_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
         packed.append(struct.pack("!6B", *self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4117,7 +4117,7 @@ class eth_src(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4163,7 +4163,7 @@ class eth_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
         packed.append(struct.pack("!6B", *self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4209,7 +4209,7 @@ class eth_type(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4255,7 +4255,7 @@ class eth_type_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4301,7 +4301,7 @@ class icmpv4_code(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4347,7 +4347,7 @@ class icmpv4_code_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4393,7 +4393,7 @@ class icmpv4_type(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4439,7 +4439,7 @@ class icmpv4_type_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4485,7 +4485,7 @@ class icmpv6_code(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4531,7 +4531,7 @@ class icmpv6_code_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4577,7 +4577,7 @@ class icmpv6_type(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4623,7 +4623,7 @@ class icmpv6_type_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4669,7 +4669,7 @@ class in_phy_port(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(util.pack_port_no(self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4715,7 +4715,7 @@ class in_phy_port_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(util.pack_port_no(self.value))
         packed.append(util.pack_port_no(self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4761,7 +4761,7 @@ class in_port(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(util.pack_port_no(self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4807,7 +4807,7 @@ class in_port_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(util.pack_port_no(self.value))
         packed.append(util.pack_port_no(self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4853,7 +4853,7 @@ class ip_dscp(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4899,7 +4899,7 @@ class ip_dscp_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4945,7 +4945,7 @@ class ip_ecn(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4991,7 +4991,7 @@ class ip_ecn_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5037,7 +5037,7 @@ class ip_proto(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5083,7 +5083,7 @@ class ip_proto_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5129,7 +5129,7 @@ class ipv4_dst(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5175,7 +5175,7 @@ class ipv4_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5221,7 +5221,7 @@ class ipv4_src(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5267,7 +5267,7 @@ class ipv4_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5306,14 +5306,14 @@ class ipv6_dst(oxm):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!16s", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5347,11 +5347,11 @@ class ipv6_dst_masked(oxm):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         if value_mask != None:
             self.value_mask = value_mask
         else:
-            self.value_mask = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value_mask = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
@@ -5359,7 +5359,7 @@ class ipv6_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!16s", self.value))
         packed.append(struct.pack("!16s", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5405,7 +5405,7 @@ class ipv6_exthdr(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5451,7 +5451,7 @@ class ipv6_exthdr_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5497,7 +5497,7 @@ class ipv6_flabel(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5543,7 +5543,7 @@ class ipv6_flabel_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5589,7 +5589,7 @@ class ipv6_nd_sll(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5635,7 +5635,7 @@ class ipv6_nd_sll_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
         packed.append(struct.pack("!6B", *self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5674,14 +5674,14 @@ class ipv6_nd_target(oxm):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!16s", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5715,11 +5715,11 @@ class ipv6_nd_target_masked(oxm):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         if value_mask != None:
             self.value_mask = value_mask
         else:
-            self.value_mask = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value_mask = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
@@ -5727,7 +5727,7 @@ class ipv6_nd_target_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!16s", self.value))
         packed.append(struct.pack("!16s", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5773,7 +5773,7 @@ class ipv6_nd_tll(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5819,7 +5819,7 @@ class ipv6_nd_tll_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!6B", *self.value))
         packed.append(struct.pack("!6B", *self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5858,14 +5858,14 @@ class ipv6_src(oxm):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!16s", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5899,11 +5899,11 @@ class ipv6_src_masked(oxm):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         if value_mask != None:
             self.value_mask = value_mask
         else:
-            self.value_mask = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value_mask = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
@@ -5911,7 +5911,7 @@ class ipv6_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!16s", self.value))
         packed.append(struct.pack("!16s", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -5957,7 +5957,7 @@ class metadata(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!Q", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6003,7 +6003,7 @@ class metadata_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!Q", self.value))
         packed.append(struct.pack("!Q", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6049,7 +6049,7 @@ class mpls_bos(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6095,7 +6095,7 @@ class mpls_bos_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6141,7 +6141,7 @@ class mpls_label(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6187,7 +6187,7 @@ class mpls_label_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6233,7 +6233,7 @@ class mpls_tc(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6279,7 +6279,7 @@ class mpls_tc_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6327,7 +6327,7 @@ class ovs_tcp_flags(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.experimenter_id))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6377,7 +6377,7 @@ class ovs_tcp_flags_masked(oxm):
         packed.append(struct.pack("!L", self.experimenter_id))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6425,7 +6425,7 @@ class sctp_dst(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6471,7 +6471,7 @@ class sctp_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6517,7 +6517,7 @@ class sctp_src(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6563,7 +6563,7 @@ class sctp_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6609,7 +6609,7 @@ class tcp_dst(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6655,7 +6655,7 @@ class tcp_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6701,7 +6701,7 @@ class tcp_src(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6747,7 +6747,7 @@ class tcp_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6793,7 +6793,7 @@ class tunnel_id(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!Q", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6839,7 +6839,7 @@ class tunnel_id_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!Q", self.value))
         packed.append(struct.pack("!Q", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6885,7 +6885,7 @@ class tunnel_ipv4_dst(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6931,7 +6931,7 @@ class tunnel_ipv4_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -6977,7 +6977,7 @@ class tunnel_ipv4_src(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -7023,7 +7023,7 @@ class tunnel_ipv4_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!L", self.value))
         packed.append(struct.pack("!L", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -7069,7 +7069,7 @@ class udp_dst(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -7115,7 +7115,7 @@ class udp_dst_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -7161,7 +7161,7 @@ class udp_src(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -7207,7 +7207,7 @@ class udp_src_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -7253,7 +7253,7 @@ class vlan_pcp(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -7299,7 +7299,7 @@ class vlan_pcp_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!B", self.value))
         packed.append(struct.pack("!B", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -7345,7 +7345,7 @@ class vlan_vid(oxm):
         packed = []
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -7391,7 +7391,7 @@ class vlan_vid_masked(oxm):
         packed.append(struct.pack("!L", self.type_len))
         packed.append(struct.pack("!H", self.value))
         packed.append(struct.pack("!H", self.value_mask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):

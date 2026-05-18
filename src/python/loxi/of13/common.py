@@ -39,10 +39,10 @@ class bsn_controller_connection(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!B", self.state))
         packed.append(struct.pack("!B", self.auxiliary_id))
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         packed.append(struct.pack("!L", self.role))
         packed.append(struct.pack("!256s", self.uri))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -51,7 +51,7 @@ class bsn_controller_connection(loxi.OFObject):
         obj.auxiliary_id = reader.read("!B")[0]
         reader.skip(2)
         obj.role = reader.read("!L")[0]
-        obj.uri = reader.read("!256s")[0].rstrip("\x00")
+        obj.uri = reader.read("!256s")[0].rstrip(b"\x00")
         return obj
 
     def __eq__(self, other):
@@ -112,14 +112,14 @@ class bsn_debug_counter_desc_stats_entry(loxi.OFObject):
         packed.append(struct.pack("!Q", self.counter_id))
         packed.append(struct.pack("!64s", self.name))
         packed.append(struct.pack("!256s", self.description))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
         obj = bsn_debug_counter_desc_stats_entry()
         obj.counter_id = reader.read("!Q")[0]
-        obj.name = reader.read("!64s")[0].rstrip("\x00")
-        obj.description = reader.read("!256s")[0].rstrip("\x00")
+        obj.name = reader.read("!64s")[0].rstrip(b"\x00")
+        obj.description = reader.read("!256s")[0].rstrip(b"\x00")
         return obj
 
     def __eq__(self, other):
@@ -163,7 +163,7 @@ class bsn_debug_counter_stats_entry(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!Q", self.counter_id))
         packed.append(struct.pack("!Q", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -204,7 +204,7 @@ class bsn_flow_checksum_bucket_stats_entry(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!Q", self.checksum))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -243,7 +243,7 @@ class bsn_generic_stats_entry(loxi.OFObject):
         packed.append(loxi.generic_util.pack_list(self.tlvs))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -282,7 +282,7 @@ class bsn_gentable_bucket_stats_entry(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(util.pack_checksum_128(self.checksum))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -334,10 +334,10 @@ class bsn_gentable_desc_stats_entry(loxi.OFObject):
         packed.append(struct.pack("!32s", self.name))
         packed.append(struct.pack("!L", self.buckets_size))
         packed.append(struct.pack("!L", self.max_entries))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -346,7 +346,7 @@ class bsn_gentable_desc_stats_entry(loxi.OFObject):
         orig_reader = reader
         reader = orig_reader.slice(_length, 2)
         obj.table_id = reader.read("!H")[0]
-        obj.name = reader.read("!32s")[0].rstrip("\x00")
+        obj.name = reader.read("!32s")[0].rstrip(b"\x00")
         obj.buckets_size = reader.read("!L")[0]
         obj.max_entries = reader.read("!L")[0]
         reader.skip(4)
@@ -407,7 +407,7 @@ class bsn_gentable_entry_desc_stats_entry(loxi.OFObject):
         packed.append(loxi.generic_util.pack_list(self.value))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -467,7 +467,7 @@ class bsn_gentable_entry_stats_entry(loxi.OFObject):
         packed.append(loxi.generic_util.pack_list(self.stats))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -520,10 +520,10 @@ class bsn_gentable_stats_entry(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!H", self.table_id))
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         packed.append(struct.pack("!L", self.entry_count))
         packed.append(util.pack_checksum_128(self.checksum))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -582,18 +582,18 @@ class bsn_interface(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!6B", *self.hw_addr))
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         packed.append(struct.pack("!16s", self.name))
         packed.append(struct.pack("!L", self.ipv4_addr))
         packed.append(struct.pack("!L", self.ipv4_netmask))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
         obj = bsn_interface()
         obj.hw_addr = list(reader.read('!6B'))
         reader.skip(2)
-        obj.name = reader.read("!16s")[0].rstrip("\x00")
+        obj.name = reader.read("!16s")[0].rstrip(b"\x00")
         obj.ipv4_addr = reader.read("!L")[0]
         obj.ipv4_netmask = reader.read("!L")[0]
         return obj
@@ -688,14 +688,14 @@ class bsn_lacp_stats_entry(loxi.OFObject):
         packed.append(struct.pack("!H", self.actor_port_num))
         packed.append(struct.pack("!H", self.actor_key))
         packed.append(struct.pack("!B", self.convergence_status))
-        packed.append('\x00' * 1)
+        packed.append(b'\x00' * 1)
         packed.append(struct.pack("!H", self.partner_sys_priority))
         packed.append(struct.pack("!6B", *self.partner_sys_mac))
         packed.append(struct.pack("!H", self.partner_port_priority))
         packed.append(struct.pack("!H", self.partner_port_num))
         packed.append(struct.pack("!H", self.partner_key))
-        packed.append('\x00' * 2)
-        return ''.join(packed)
+        packed.append(b'\x00' * 2)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -792,12 +792,12 @@ class bsn_port_counter_stats_entry(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!H", 0)) # placeholder for length at index 0
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         packed.append(util.pack_port_no(self.port_no))
         packed.append(loxi.generic_util.pack_list(self.values))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -842,12 +842,12 @@ class bsn_switch_pipeline_stats_entry(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!256s", self.pipeline))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
         obj = bsn_switch_pipeline_stats_entry()
-        obj.pipeline = reader.read("!256s")[0].rstrip("\x00")
+        obj.pipeline = reader.read("!256s")[0].rstrip(b"\x00")
         return obj
 
     def __eq__(self, other):
@@ -883,7 +883,7 @@ class bsn_table_checksum_stats_entry(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!B", self.table_id))
         packed.append(struct.pack("!Q", self.checksum))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -929,7 +929,7 @@ class bsn_vport(loxi.OFObject):
         packed.append(struct.pack("!H", 0)) # placeholder for length at index 1
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -976,11 +976,11 @@ class bsn_vlan_counter_stats_entry(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!H", 0)) # placeholder for length at index 0
         packed.append(struct.pack("!H", self.vlan_vid))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(loxi.generic_util.pack_list(self.values))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1030,7 +1030,7 @@ class bsn_vlan_mac(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!H", self.vlan_vid))
         packed.append(struct.pack("!6B", *self.mac))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1126,13 +1126,13 @@ class bsn_vport_l2gre(bsn_vport):
         packed.append(struct.pack("!L", self.dst_ip))
         packed.append(struct.pack("!B", self.dscp))
         packed.append(struct.pack("!B", self.ttl))
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         packed.append(struct.pack("!L", self.vpn))
         packed.append(struct.pack("!L", self.rate_limit))
         packed.append(struct.pack("!16s", self.if_name))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1154,7 +1154,7 @@ class bsn_vport_l2gre(bsn_vport):
         reader.skip(2)
         obj.vpn = reader.read("!L")[0]
         obj.rate_limit = reader.read("!L")[0]
-        obj.if_name = reader.read("!16s")[0].rstrip("\x00")
+        obj.if_name = reader.read("!16s")[0].rstrip(b"\x00")
         return obj
 
     def __eq__(self, other):
@@ -1261,7 +1261,7 @@ class bsn_vport_q_in_q(bsn_vport):
         packed.append(struct.pack("!16s", self.if_name))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1276,7 +1276,7 @@ class bsn_vport_q_in_q(bsn_vport):
         obj.ingress_vlan_id = reader.read("!H")[0]
         obj.egress_tpid = reader.read("!H")[0]
         obj.egress_vlan_id = reader.read("!H")[0]
-        obj.if_name = reader.read("!16s")[0].rstrip("\x00")
+        obj.if_name = reader.read("!16s")[0].rstrip(b"\x00")
         return obj
 
     def __eq__(self, other):
@@ -1332,12 +1332,12 @@ class bsn_vrf_counter_stats_entry(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!H", 0)) # placeholder for length at index 0
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         packed.append(struct.pack("!L", self.vrf))
         packed.append(loxi.generic_util.pack_list(self.values))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1397,11 +1397,11 @@ class bucket(loxi.OFObject):
         packed.append(struct.pack("!H", self.weight))
         packed.append(util.pack_port_no(self.watch_port))
         packed.append(struct.pack("!L", self.watch_group))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(loxi.generic_util.pack_list(self.actions))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1461,7 +1461,7 @@ class bucket_counter(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!Q", self.packet_count))
         packed.append(struct.pack("!Q", self.byte_count))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1547,14 +1547,14 @@ class flow_stats_entry(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!H", 0)) # placeholder for length at index 0
         packed.append(struct.pack("!B", self.table_id))
-        packed.append('\x00' * 1)
+        packed.append(b'\x00' * 1)
         packed.append(struct.pack("!L", self.duration_sec))
         packed.append(struct.pack("!L", self.duration_nsec))
         packed.append(struct.pack("!H", self.priority))
         packed.append(struct.pack("!H", self.idle_timeout))
         packed.append(struct.pack("!H", self.hard_timeout))
         packed.append(struct.pack("!H", self.flags))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(struct.pack("!Q", self.cookie))
         packed.append(struct.pack("!Q", self.packet_count))
         packed.append(struct.pack("!Q", self.byte_count))
@@ -1562,7 +1562,7 @@ class flow_stats_entry(loxi.OFObject):
         packed.append(loxi.generic_util.pack_list(self.instructions))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1668,12 +1668,12 @@ class group_desc_stats_entry(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!H", 0)) # placeholder for length at index 0
         packed.append(struct.pack("!B", self.group_type))
-        packed.append('\x00' * 1)
+        packed.append(b'\x00' * 1)
         packed.append(struct.pack("!L", self.group_id))
         packed.append(loxi.generic_util.pack_list(self.buckets))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1751,10 +1751,10 @@ class group_stats_entry(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!H", 0)) # placeholder for length at index 0
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         packed.append(struct.pack("!L", self.group_id))
         packed.append(struct.pack("!L", self.ref_count))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(struct.pack("!Q", self.packet_count))
         packed.append(struct.pack("!Q", self.byte_count))
         packed.append(struct.pack("!L", self.duration_sec))
@@ -1762,7 +1762,7 @@ class group_stats_entry(loxi.OFObject):
         packed.append(loxi.generic_util.pack_list(self.bucket_stats))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1838,7 +1838,7 @@ class hello_elem(loxi.OFObject):
         packed.append(struct.pack("!H", 0)) # placeholder for length at index 1
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1885,7 +1885,7 @@ class hello_elem_versionbitmap(hello_elem):
         packed.append(loxi.generic_util.pack_list(self.bitmaps))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1933,7 +1933,7 @@ class match_v3(loxi.OFObject):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1980,7 +1980,7 @@ class meter_band_stats(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!Q", self.packet_band_count))
         packed.append(struct.pack("!Q", self.byte_band_count))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2034,7 +2034,7 @@ class meter_config(loxi.OFObject):
         packed.append(loxi.generic_util.pack_list(self.entries))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2104,8 +2104,8 @@ class meter_features(loxi.OFObject):
         packed.append(struct.pack("!L", self.capabilities))
         packed.append(struct.pack("!B", self.max_bands))
         packed.append(struct.pack("!B", self.max_color))
-        packed.append('\x00' * 2)
-        return ''.join(packed)
+        packed.append(b'\x00' * 2)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2187,7 +2187,7 @@ class meter_stats(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!L", self.meter_id))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 6)
+        packed.append(b'\x00' * 6)
         packed.append(struct.pack("!L", self.flow_count))
         packed.append(struct.pack("!Q", self.packet_in_count))
         packed.append(struct.pack("!Q", self.byte_in_count))
@@ -2196,7 +2196,7 @@ class meter_stats(loxi.OFObject):
         packed.append(loxi.generic_util.pack_list(self.band_stats))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2276,11 +2276,11 @@ class packet_queue(loxi.OFObject):
         packed.append(struct.pack("!L", self.queue_id))
         packed.append(util.pack_port_no(self.port))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 2
-        packed.append('\x00' * 6)
+        packed.append(b'\x00' * 6)
         packed.append(loxi.generic_util.pack_list(self.properties))
         length = sum([len(x) for x in packed])
         packed[2] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2370,9 +2370,9 @@ class port_desc(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(util.pack_port_no(self.port_no))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(struct.pack("!6B", *self.hw_addr))
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         packed.append(struct.pack("!16s", self.name))
         packed.append(struct.pack("!L", self.config))
         packed.append(struct.pack("!L", self.state))
@@ -2382,7 +2382,7 @@ class port_desc(loxi.OFObject):
         packed.append(struct.pack("!L", self.peer))
         packed.append(struct.pack("!L", self.curr_speed))
         packed.append(struct.pack("!L", self.max_speed))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2391,7 +2391,7 @@ class port_desc(loxi.OFObject):
         reader.skip(4)
         obj.hw_addr = list(reader.read('!6B'))
         reader.skip(2)
-        obj.name = reader.read("!16s")[0].rstrip("\x00")
+        obj.name = reader.read("!16s")[0].rstrip(b"\x00")
         obj.config = reader.read("!L")[0]
         obj.state = reader.read("!L")[0]
         obj.curr = reader.read("!L")[0]
@@ -2532,7 +2532,7 @@ class port_stats_entry(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(util.pack_port_no(self.port_no))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(struct.pack("!Q", self.rx_packets))
         packed.append(struct.pack("!Q", self.tx_packets))
         packed.append(struct.pack("!Q", self.rx_bytes))
@@ -2547,7 +2547,7 @@ class port_stats_entry(loxi.OFObject):
         packed.append(struct.pack("!Q", self.collisions))
         packed.append(struct.pack("!L", self.duration_sec))
         packed.append(struct.pack("!L", self.duration_nsec))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2657,10 +2657,10 @@ class queue_prop(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2711,13 +2711,13 @@ class queue_prop_experimenter(queue_prop):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(struct.pack("!L", self.experimenter))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(self.data)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2770,12 +2770,12 @@ class queue_prop_max_rate(queue_prop):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(struct.pack("!H", self.rate))
-        packed.append('\x00' * 6)
+        packed.append(b'\x00' * 6)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2821,12 +2821,12 @@ class queue_prop_min_rate(queue_prop):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         packed.append(struct.pack("!H", self.rate))
-        packed.append('\x00' * 6)
+        packed.append(b'\x00' * 6)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2900,7 +2900,7 @@ class queue_stats_entry(loxi.OFObject):
         packed.append(struct.pack("!Q", self.tx_errors))
         packed.append(struct.pack("!L", self.duration_sec))
         packed.append(struct.pack("!L", self.duration_nsec))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -2971,7 +2971,7 @@ class table_feature_prop(loxi.OFObject):
         packed.append(struct.pack("!H", 0)) # placeholder for length at index 1
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3019,7 +3019,7 @@ class table_feature_prop_apply_actions(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3068,7 +3068,7 @@ class table_feature_prop_apply_actions_miss(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3117,7 +3117,7 @@ class table_feature_prop_apply_setfield(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3166,7 +3166,7 @@ class table_feature_prop_apply_setfield_miss(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3227,7 +3227,7 @@ class table_feature_prop_experimenter(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3300,7 +3300,7 @@ class table_feature_prop_experimenter_miss(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3361,7 +3361,7 @@ class table_feature_prop_instructions(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3410,7 +3410,7 @@ class table_feature_prop_instructions_miss(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3459,7 +3459,7 @@ class table_feature_prop_match(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3508,7 +3508,7 @@ class table_feature_prop_next_tables(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3557,7 +3557,7 @@ class table_feature_prop_next_tables_miss(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3606,7 +3606,7 @@ class table_feature_prop_wildcards(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3655,7 +3655,7 @@ class table_feature_prop_write_actions(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3704,7 +3704,7 @@ class table_feature_prop_write_actions_miss(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3753,7 +3753,7 @@ class table_feature_prop_write_setfield(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3802,7 +3802,7 @@ class table_feature_prop_write_setfield_miss(table_feature_prop):
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
         packed.append(loxi.generic_util.pad_to(8, length))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3870,7 +3870,7 @@ class table_features(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!H", 0)) # placeholder for length at index 0
         packed.append(struct.pack("!B", self.table_id))
-        packed.append('\x00' * 5)
+        packed.append(b'\x00' * 5)
         packed.append(struct.pack("!32s", self.name))
         packed.append(struct.pack("!Q", self.metadata_match))
         packed.append(struct.pack("!Q", self.metadata_write))
@@ -3879,7 +3879,7 @@ class table_features(loxi.OFObject):
         packed.append(loxi.generic_util.pack_list(self.properties))
         length = sum([len(x) for x in packed])
         packed[0] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -3889,7 +3889,7 @@ class table_features(loxi.OFObject):
         reader = orig_reader.slice(_length, 2)
         obj.table_id = reader.read("!B")[0]
         reader.skip(5)
-        obj.name = reader.read("!32s")[0].rstrip("\x00")
+        obj.name = reader.read("!32s")[0].rstrip(b"\x00")
         obj.metadata_match = reader.read("!Q")[0]
         obj.metadata_write = reader.read("!Q")[0]
         obj.config = reader.read("!L")[0]
@@ -3961,11 +3961,11 @@ class table_stats_entry(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!B", self.table_id))
-        packed.append('\x00' * 3)
+        packed.append(b'\x00' * 3)
         packed.append(struct.pack("!L", self.active_count))
         packed.append(struct.pack("!Q", self.lookup_count))
         packed.append(struct.pack("!Q", self.matched_count))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4017,7 +4017,7 @@ class uint32(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!L", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4053,7 +4053,7 @@ class uint64(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!Q", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -4089,7 +4089,7 @@ class uint8(loxi.OFObject):
     def pack(self):
         packed = []
         packed.append(struct.pack("!B", self.value))
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):

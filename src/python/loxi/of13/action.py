@@ -29,10 +29,10 @@ class action(loxi.OFObject):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -89,7 +89,7 @@ class experimenter(action):
         packed.append(loxi.generic_util.pad_to(8, length))
         length += len(packed[-1])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -145,10 +145,10 @@ class bsn(experimenter):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!L", self.subtype))
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -205,7 +205,7 @@ class bsn_checksum(bsn):
         packed.append(util.pack_checksum_128(self.checksum))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -265,7 +265,7 @@ class bsn_gentable(bsn):
         packed.append(loxi.generic_util.pack_list(self.key))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -333,10 +333,10 @@ class bsn_mirror(bsn):
         packed.append(struct.pack("!L", self.dest_port))
         packed.append(struct.pack("!L", self.vlan_tag))
         packed.append(struct.pack("!B", self.copy_stage))
-        packed.append('\x00' * 3)
+        packed.append(b'\x00' * 3)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -402,7 +402,7 @@ class bsn_set_tunnel_dst(bsn):
         packed.append(struct.pack("!L", self.dst))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -446,10 +446,10 @@ class copy_ttl_in(action):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -486,10 +486,10 @@ class copy_ttl_out(action):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -526,10 +526,10 @@ class dec_mpls_ttl(action):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -566,10 +566,10 @@ class dec_nw_ttl(action):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -613,7 +613,7 @@ class group(action):
         packed.append(struct.pack("!L", self.group_id))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -662,11 +662,11 @@ class nicira(experimenter):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!H", self.subtype))
-        packed.append('\x00' * 2)
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 2)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -717,11 +717,11 @@ class nicira_dec_ttl(nicira):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!L", self.experimenter))
         packed.append(struct.pack("!H", self.subtype))
-        packed.append('\x00' * 2)
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 2)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -773,10 +773,10 @@ class output(action):
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(util.pack_port_no(self.port))
         packed.append(struct.pack("!H", self.max_len))
-        packed.append('\x00' * 6)
+        packed.append(b'\x00' * 6)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -827,10 +827,10 @@ class pop_mpls(action):
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!H", self.ethertype))
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -871,10 +871,10 @@ class pop_pbb(action):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -911,10 +911,10 @@ class pop_vlan(action):
         packed = []
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
-        packed.append('\x00' * 4)
+        packed.append(b'\x00' * 4)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -956,10 +956,10 @@ class push_mpls(action):
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!H", self.ethertype))
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1005,10 +1005,10 @@ class push_pbb(action):
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!H", self.ethertype))
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1054,10 +1054,10 @@ class push_vlan(action):
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!H", self.ethertype))
-        packed.append('\x00' * 2)
+        packed.append(b'\x00' * 2)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1107,7 +1107,7 @@ class set_field(action):
         packed.append(loxi.generic_util.pad_to(8, length))
         length += len(packed[-1])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1152,10 +1152,10 @@ class set_mpls_ttl(action):
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!B", self.mpls_ttl))
-        packed.append('\x00' * 3)
+        packed.append(b'\x00' * 3)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1201,10 +1201,10 @@ class set_nw_ttl(action):
         packed.append(struct.pack("!H", self.type))
         packed.append(struct.pack("!H", 0)) # placeholder for len at index 1
         packed.append(struct.pack("!B", self.nw_ttl))
-        packed.append('\x00' * 3)
+        packed.append(b'\x00' * 3)
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):
@@ -1252,7 +1252,7 @@ class set_queue(action):
         packed.append(struct.pack("!L", self.queue_id))
         length = sum([len(x) for x in packed])
         packed[1] = struct.pack("!H", length)
-        return ''.join(packed)
+        return b''.join(packed)
 
     @staticmethod
     def unpack(reader):

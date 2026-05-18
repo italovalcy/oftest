@@ -4321,7 +4321,7 @@ class ipv6(bsn_tlv):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
@@ -4368,7 +4368,7 @@ class ipv6_dst(bsn_tlv):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):
@@ -4415,7 +4415,7 @@ class ipv6_prefix(bsn_tlv):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         if prefix_length != None:
             self.prefix_length = prefix_length
         else:
@@ -4472,7 +4472,7 @@ class ipv6_src(bsn_tlv):
         if value != None:
             self.value = value
         else:
-            self.value = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            self.value = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
         return
 
     def pack(self):

@@ -9,6 +9,8 @@ import os
 import fcntl
 import logging
 
+from oftest import config
+
 default_timeout = None # set by oft
 default_negative_timeout = None # set by oft
 
@@ -23,7 +25,7 @@ There is deliberately no support for an infinite timeout.
 """
 def timed_wait(cv, fn, timeout=-1):
     if timeout == -1:
-        timeout = default_timeout
+        timeout = config["default_timeout"]
 
     end_time = time.time() + timeout
     while True:
@@ -53,7 +55,7 @@ class EventDescriptor():
 
     def notify(self):
         try:
-            os.write(self.pipe_wr, "x")
+            os.write(self.pipe_wr, b"x")
         except OSError as e:
             logging.warn("Failed to notify EventDescriptor: %s", e)
 

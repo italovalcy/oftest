@@ -14,7 +14,7 @@ import struct
 import functools
 
 def pack_list(values):
-    return "".join([x.pack() for x in values])
+    return b"".join([x.pack() for x in values])
 
 def unpack_list(reader, deserializer):
     """
@@ -30,7 +30,7 @@ def pad_to(alignment, length):
     Return a string of zero bytes that will pad a string of length 'length' to
     a multiple of 'alignment'.
     """
-    return "\x00" * ((length + alignment - 1)/alignment*alignment - length)
+    return b"\x00" * ((length + alignment - 1)//alignment*alignment - length)
 
 class OFReader(object):
     """

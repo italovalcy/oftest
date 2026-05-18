@@ -14,6 +14,7 @@ configuration.
 for filters should include a callback or a counter
 """
 
+import ast
 import sys
 import os
 import socket
@@ -90,6 +91,8 @@ class DataPlanePortLinux:
         @param packet The packet data to send to the port
         @retval The number of bytes sent
         """
+        if isinstance(packet, str):
+            packet = ast.literal_eval(packet)
         return self.socket.send(packet)
 
     def down(self):
@@ -261,6 +264,8 @@ class DataPlane(Thread):
         @param port_number The port to send the data to
         @param packet Raw packet data to send to port
         """
+        if isinstance(packet, str):
+            packet = ast.literal_eval(packet)
         self.logger.debug("Sending %d bytes to port %d" %
                           (len(packet), port_number))
         if self.pcap_writer:
