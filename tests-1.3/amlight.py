@@ -843,6 +843,8 @@ class TestBarrier(MatchTest):
                     priority=1000)
             self.controller.message_send(request)
             #do_barrier(self.controller)
+        # workaround to for stats to be updated - useful for p4ofswitch
+        flow_stats = get_stats(self, ofp.message.flow_stats_request())
         stats = get_stats(self, ofp.message.table_stats_request())
         for entry in stats:
             if entry.table_id == 0:
