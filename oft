@@ -20,7 +20,8 @@ import logging
 import unittest
 import time
 import os
-import imp
+#import imp
+import importlib.util
 import random
 import signal
 import fnmatch
@@ -332,7 +333,10 @@ def load_test_modules(config):
                 if modname in sys.modules:
                     mod = sys.modules[modname]
                 else:
-                    mod = imp.load_module(modname, *imp.find_module(modname, [root]))
+                    spec = importlib.util.find_spec(modname, package=[root])
+                    mod = importlib.util.module_from_spec(spec)
+                    sys.modules[modname] = mod
+                    spec.loader.exec_module(mod)
             except:
                 logging.warning("Could not import file " + filename)
                 raise
@@ -526,7 +530,11 @@ platform_name = config["platform"]
 logging.info("Importing platform: " + platform_name)
 platform_mod = None
 try:
-    platform_mod = imp.load_module(platform_name, *imp.find_module(platform_name, [config["platform_dir"]]))
+    #platform_mod = imp.load_module(platform_name, *imp.find_module(platform_name, [config["platform_dir"]]))
+    spec = importlib.util.find_spec(platform_name, package=[config["platform_dir"]])
+    platform_mod = importlib.util.module_from_spec(spec)
+    sys.modules[platform_name] = platform_mod
+    spec.loader.exec_module(platform_mod)
 except:
     logging.warn("Failed to import " + platform_name + " platform module")
     raise

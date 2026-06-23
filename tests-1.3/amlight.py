@@ -71,7 +71,7 @@ class MatchTest(base_tests.SimpleDataPlane):
             dp_port1 = in_port
         for name, pkt in matching.items():
             logging.info("Sending matching packet %s, expecting output to port %d", repr(name), out_port)
-            pktstr = str(pkt)
+            pktstr = str(pkt.build())
             self.dataplane.send(dp_port1, pktstr)
             verify_packets(self, pktstr, [out_port])
 
@@ -79,7 +79,7 @@ class MatchTest(base_tests.SimpleDataPlane):
             dp_port2 = in_port
         for name, pkt in nonmatching.items():
             logging.info("Sending non-matching packet %s, expecting packet-in", repr(name))
-            pktstr = str(pkt)
+            pktstr = str(pkt.build())
             self.dataplane.send(dp_port2, pktstr)
             verify_packet_in(self, pktstr, dp_port2, ofp.OFPR_ACTION)
 
@@ -145,8 +145,8 @@ class BaseModifyPacketTest(base_tests.SimpleDataPlane):
         do_barrier(self.controller)
 
         logging.info("Sending packet, expecting output to port %d", out_port)
-        self.dataplane.send(in_port, str(pkt))
-        verify_packets(self, str(exp_pkt), [out_port])
+        self.dataplane.send(in_port, str(pkt.build()))
+        verify_packets(self, str(exp_pkt.build()), [out_port])
 
 class MatchVlanVID(MatchTest):
     """
@@ -355,7 +355,7 @@ class MatchLogicalPort(base_tests.SimpleDataPlane):
 
         # send packets from port 1, the packet should be forwarded to logical port
         # and come back, throwing a packet in on the controller
-        pkt = str(simple_icmp_packet())
+        pkt = str(simple_icmp_packet().build())
         msg = ofp.message.packet_out(
             in_port=ofp.OFPP_LOCAL,
             actions=[ofp.action.output(port=logicalportno)],
@@ -435,7 +435,7 @@ class ActionOutputController(base_tests.SimpleDataPlane):
     def runTest(self):
         delete_all_flows(self.controller)
 
-        pkt = str(simple_tcp_packet())
+        pkt = str(simple_tcp_packet().build())
 
         request = ofp.message.flow_add(
             table_id=test_param_get("table", 0),
@@ -527,7 +527,7 @@ class ActionOutputLocal(base_tests.SimpleDataPlane):
                       hw_tgt='ff:ff:ff:ff:ff:ff',
                       ip_snd='67.17.206.229',
                       ip_tgt='67.17.206.227',
-                      arp_op = 2))
+                      arp_op = 2).build())
 
         self.dataplane.send(in_port, pkt)
         #msg = ofp.message.packet_out(
@@ -605,7 +605,7 @@ class ActionOutputLogicalPort(MatchTest):
             eth_dst = "00:04:05:06:%02x:%02x" % (random.randint(0, 255), random.randint(0, 255))
             ip_dst = "192.168.0.%d" % (i)
             ip_src = "192.168.0.254"
-            pktstr = str(simple_icmp_packet(eth_dst=eth_dst, eth_src=eth_src, ip_dst=ip_dst, ip_src=ip_src))
+            pktstr = str(simple_icmp_packet(eth_dst=eth_dst, eth_src=eth_src, ip_dst=ip_dst, ip_src=ip_src).build())
             self.dataplane.send(in_port, pktstr)
             verify_packet_in(self, pktstr, logicalportno, ofp.OFPR_ACTION)
 
@@ -651,7 +651,7 @@ class ActionOutputMultiple(base_tests.SimpleDataPlane):
 
         # send packets from port 1, the packet should be forwarded to logical port
         # and come back, then the packet is forwarded to port1 and port2
-        pkt = str(simple_icmp_packet())
+        pkt = str(simple_icmp_packet().build())
         msg = ofp.message.packet_out(
             in_port=ofp.OFPP_LOCAL,
             actions=[ofp.action.output(port=logicalportno)],
@@ -692,7 +692,7 @@ class ActionOutputTABLE(base_tests.SimpleDataPlane):
 
         # send packets a packet out which will be forward to first TABLE
         # and it will be processed through the regular OpenFlow pipeline
-        pkt = str(simple_icmp_packet())
+        pkt = str(simple_icmp_packet().build())
         msg = ofp.message.packet_out(
             in_port=23,
             actions=[ofp.action.output(port=ofp.OFPP_TABLE)],
@@ -724,7 +724,7 @@ class ActionDrop(base_tests.SimpleDataPlane):
         self.controller.message_send(request)
         do_barrier(self.controller)
 
-        pkt = str(simple_tcp_packet())
+        pkt = str(simple_tcp_packet().build())
         self.dataplane.send(in_port, pkt)
         verify_no_packet_in(self, pkt, None)
         verify_packets(self, pkt, [])
